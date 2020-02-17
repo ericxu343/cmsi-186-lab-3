@@ -2,9 +2,13 @@
  * A dice set holds a collection of Die objects. All of the die objects have
  * the same number of sides.
  */
+import java.util.Random;
 public class DiceSet {
 
     // TODO add fields
+    private final int sidesOnEachDie;
+    private final int numberOfDice;
+    private int value;
 
     /**
      * Creates a DiceSet containing the given number of dice, each with the
@@ -12,17 +16,45 @@ public class DiceSet {
      * IllegalArgumentException if either less than two dice were provided
      * or if it is asked to make dice with less than 4 sides.
      */
+
+
     public DiceSet(int sidesOnEachDie, int numberOfDice) {
         // TODO
+        if (sidesOnEachDie < 4) {
+          throw new IllegalArgumentException("At least four sides required for each die");
+        }
+        else if (numberOfDice < 2) {
+          throw new IllegalArgumentException("At least 2 die required");
+        }
+        sidesOnEachDie = this.sidesOnEachDie;
+        numberOfDice = this.numberOfDice;
+
     }
 
     /**
      * Creates a DiceSet where each die has the given number of sides, with the
      * given values.
      */
+
+    /*
     public DiceSet(int sidesOnEachDie, int... values) {
-        // TODO
+       // TODO
+       sidesOnEachDie = this.sidesOnEachDie;
+       value = ... values;
     }
+    */
+
+    public DiceSet(int sidesOnEachDie, int[] values) { // not logical
+        // TODO
+        // creates and defines the number of sides
+        sidesOnEachDie = this.sidesOnEachDie;
+        values = new int[numberOfDice];
+        for (int i = 0; i < numberOfDice; i++) { // assigns a value to each of the data in the value
+          values[i] = this.value;
+        }
+
+    }
+
 
     /**
      * Returns the descriptor of the dice set; for example "5d20" for a set with
@@ -30,6 +62,9 @@ public class DiceSet {
      */
     public String descriptor() {
         // TODO
+        // prints the description of how many dies and number of sides
+        System.out.printf("There are d%d ", numberOfDice, sidesOnEachDie);
+
     }
 
     /**
@@ -37,6 +72,7 @@ public class DiceSet {
      */
     public int sum() {
         // TODO
+
     }
 
     /**
@@ -44,6 +80,10 @@ public class DiceSet {
      */
     public void rollAll() {
         // TODO
+      /*  for(){
+
+        } */
+
     }
 
     /**
@@ -51,6 +91,8 @@ public class DiceSet {
      */
     public void rollIndividual(int i) {
         // TODO
+
+
     }
 
     /**
@@ -58,6 +100,7 @@ public class DiceSet {
      */
     public int getIndividual(int i) {
         // TODO
+
     }
 
     /**
@@ -65,6 +108,10 @@ public class DiceSet {
      */
     public List<Integer> values() {
         // TODO
+        /* for(){
+
+        } */
+
     }
 
     /**
@@ -82,6 +129,9 @@ public class DiceSet {
      * joined without a separator, for example: "[2][5][2][3]".
      */
     @Override public String toString() {
+
+
+
         // TODO
     }
 }

@@ -7,7 +7,6 @@ import java.util.Random;
  * method.
  */
 public class Die {
-    private static Random random = new Random();
 
     // TODO: Add fields
 
@@ -16,8 +15,27 @@ public class Die {
      * @throws IllegalArgumentException if the number of sides is less than 4 or
      * if the starting value is not consistent with the number of sides.
      */
+
+     /**
+      * Create the fields
+     */
+     private static Random random = new Random();
+     public static final String SIX_SIDED_DIE_EMOJI = "🎲"; // made it so people can see it and not changed
+     private final int sides;
+     private int value; // value has to change only by rolling it (cannot be seen)
+//     var aDie = new Die(numOfSides, aValue);
     public Die(int sides, int value) {
         // TODO
+        if (sides < 4) {
+          throw new IllegalArgumentException("At least four sides required");
+        }
+        else if (value < 1 || value > sides) {
+          throw new IllegalArgumentException("Die value not legal for die shape");
+        }
+
+        this.sides = sides; // assigns the number of sides to die
+        this.value = value; // assigns a value to the die
+
     }
 
     /**
@@ -26,20 +44,24 @@ public class Die {
      */
     public int roll() {
         // TODO
+        value = random.nextInt(sides) + 1; // creates a value from 0 to 5 and adds 1
+        return value;
     }
 
     /**
-     * Returns the number of sides of this die.
+     * Returns the number of sides of this die. Allows us to see the sides
      */
     public int getSides() {
         // TODO
+        return sides;
     }
 
     /**
-     * Returns the value of this die.
+     * Returns the value of this die. Allows us to see the values. Also it gets called first before roll logically
      */
     public int getValue() {
         // TODO
+        return value;
     }
 
     /**
@@ -48,5 +70,7 @@ public class Die {
      */
     @Override public String toString() {
         // TODO
+        return "[" + value + "]"; // returns the value in brackets
+
     }
 }
