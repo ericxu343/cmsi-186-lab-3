@@ -3,12 +3,15 @@
  * the same number of sides.
  */
 import java.util.Random;
+import java.util.List;
+import java.util.Arrays;
+
 public class DiceSet {
 
     // TODO add fields
-    private final int sidesOnEachDie;
-    private final int numberOfDice;
-    private int value;
+    private static Random random = new Random();
+    private Die[] dice; // a collection of die objects
+//    private int[][] diceMatrix; // makes matrix of dice values
 
     /**
      * Creates a DiceSet containing the given number of dice, each with the
@@ -21,13 +24,15 @@ public class DiceSet {
     public DiceSet(int sidesOnEachDie, int numberOfDice) {
         // TODO
         if (sidesOnEachDie < 4) {
-          throw new IllegalArgumentException("At least four sides required for each die");
+          throw new IllegalArgumentException("Dice must have at least four sides");
         }
-        else if (numberOfDice < 2) {
-          throw new IllegalArgumentException("At least 2 die required");
+        if (numberOfDice < 2) {
+          throw new IllegalArgumentException("At least two dice required");
         }
-        sidesOnEachDie = this.sidesOnEachDie;
-        numberOfDice = this.numberOfDice;
+        this.dice = new Die[numberOfDice];
+        for (var i = 0; i < numberOfDice; i++) {
+          this.dice[i] = new Die(sidesOnEachDie, 1); // set them to 1
+        }
 
     }
 
@@ -36,23 +41,22 @@ public class DiceSet {
      * given values.
      */
 
-    /*
-    public DiceSet(int sidesOnEachDie, int... values) {
-       // TODO
-       sidesOnEachDie = this.sidesOnEachDie;
-       value = ... values;
-    }
-    */
 
-    public DiceSet(int sidesOnEachDie, int[] values) { // not logical
+    public DiceSet(int sidesOnEachDie, int... values) {
         // TODO
-        // creates and defines the number of sides
-        sidesOnEachDie = this.sidesOnEachDie;
-        values = new int[numberOfDice];
-        for (int i = 0; i < numberOfDice; i++) { // assigns a value to each of the data in the value
-          values[i] = this.value;
+        if (sidesOnEachDie < 4) {
+          throw new IllegalArgumentException("Dice must have at least four sides");
+        }
+        if (values.length < 2) {
+          throw new IllegalArgumentException("At least two dice required");
         }
 
+        this.dice = new Die[values.length]; // creates an array of Die with number of values
+
+        for (var i = 0; i < this.dice.length; i++){
+
+          this.dice[i] = new Die(sidesOnEachDie, values[i]); // creates a dice in the set
+        }
     }
 
 
@@ -61,10 +65,7 @@ public class DiceSet {
      * five dice of 20 sides each; or "2d6" for a set of two six-sided dice.
      */
     public String descriptor() {
-        // TODO
-        // prints the description of how many dies and number of sides
-        System.out.printf("There are d%d ", numberOfDice, sidesOnEachDie);
-
+        return this.dice.length + "d" + this.dice[0].sides;
     }
 
     /**
@@ -72,6 +73,11 @@ public class DiceSet {
      */
     public int sum() {
         // TODO
+        int sum = 0;
+        for (int i = 0; i < this.dice.length; i++) {
+          sum += this.dice[i].value; // add each of the indviduals
+        }
+        return sum;
 
     }
 
@@ -80,10 +86,12 @@ public class DiceSet {
      */
     public void rollAll() {
         // TODO
-      /*  for(){
-
-        } */
-
+        // List<Integer> values = new ArrayList<Integer>();
+        for (int i = 0; i< this.dice.length; i++){
+          this.dice[i].roll(); // rolls each die in set
+          // values.add(dice.values[i]);
+        }
+        return;
     }
 
     /**
@@ -91,8 +99,9 @@ public class DiceSet {
      */
     public void rollIndividual(int i) {
         // TODO
-
-
+        // rolls the ith die in set
+        this.dice[i].roll();
+        return;
     }
 
     /**
@@ -100,7 +109,7 @@ public class DiceSet {
      */
     public int getIndividual(int i) {
         // TODO
-
+        return this.dice[i].value;
     }
 
     /**
@@ -108,9 +117,13 @@ public class DiceSet {
      */
     public List<Integer> values() {
         // TODO
-        /* for(){
-
-        } */
+        // Make a loop
+        Integer [] diceArray = new Integer[this.dice.length];
+        for (int i = 0; i < this.dice.length; i++){
+          int diceValue = this.dice[i].value;
+          diceArray[i] = diceValue;
+        }
+        return Arrays.asList(diceArray);
 
     }
 
@@ -122,6 +135,16 @@ public class DiceSet {
      */
     public boolean isIdenticalTo(DiceSet diceSet) {
         // TODO
+        if(this.dice.length < diceSet.dice.length || diceSet.dice.length < this.dice.length){
+          return false;
+        }
+
+        if(this.dice[0].sides > diceSet.dice[0].sides || this.dice[0].sides < diceSet.dice[0].sides){
+          return false;
+        }
+        else{
+          return true;
+        }
     }
 
     /**
@@ -131,7 +154,11 @@ public class DiceSet {
     @Override public String toString() {
 
 
-
         // TODO
+        String result = "";
+        for(Die d : dice){
+          result += d.toString();
+        }
+        return result;
     }
 }

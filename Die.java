@@ -21,8 +21,8 @@ public class Die {
      */
      private static Random random = new Random();
      public static final String SIX_SIDED_DIE_EMOJI = "🎲"; // made it so people can see it and not changed
-     private final int sides;
-     private int value; // value has to change only by rolling it (cannot be seen)
+     public final int sides;
+     public int value; // value has to change only by rolling it (cannot be seen)
 //     var aDie = new Die(numOfSides, aValue);
     public Die(int sides, int value) {
         // TODO
